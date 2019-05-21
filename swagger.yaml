@@ -1,0 +1,79 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Base Capm Swagger Test
+  description: Eine Swagger API zur Demonstration im Base Camp
+  termsOfService: terms
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+host: 'localhost:8080'
+basePath: /basePath
+tags:
+  - name: POST
+    description: Die Menge aller POST Requests
+  - name: GET
+    description: Die Menge aller GET Requests
+  - name: DELETE
+    description: Die Menge aller DELETE Requests
+schemes:
+  - http
+  - https
+paths:
+  /upload:
+    post:
+      tags:
+        - POST
+      summary: 'Ein Post, um eine Datei hochzuladen'
+      description: Nimmt eine Datei jeden Types an und lädt es auf den Server hoch
+      operationId: upload
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: file
+          type: file
+          description: 'Die Datei, die hochgeladen werden soll'
+      responses:
+        '200':
+          description: OK
+  '/return/{file}':
+    get:
+      tags:
+        - GET
+      summary: 'Ein GET, um eine Datei abzufragen'
+      description: Fragt auf dem Server nach der gegebene Datei nach
+      operationId: return
+      produces:
+        - multipart/form-data
+      parameters:
+        - in: path
+          name: file
+          type: string
+          description: 'Die Datei, die abgefragt werden soll'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Not OK
+  /delete:
+    delete:
+      tags:
+        - DELETE
+      summary: 'Ein DELETE, um eine Datei zu löschen'
+      description: 'Löschte die Datei, die unter der gegebene ID vorhanden ist vom Server'
+      operationId: delete
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          required: true
+          description: Die ID der zu löschenden Datei
+      responses:
+        '200':
+          description: OK
